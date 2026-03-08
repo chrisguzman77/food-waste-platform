@@ -1,0 +1,44 @@
+[project]
+name = "food-waste-platform-backend"
+version = "0.1.0"
+description = "FastAPI backend for a food waste redistribution platform"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "alembic>=1.13.2",
+  "email-validator>=2.2.0",
+  "fastapi>=0.115.0",
+  "passlib[bcrypt]>=1.7.4",
+  "psycopg[binary]>=3.2.1",
+  "pydantic-settings>=2.5.2",
+  "python-jose[cryptography]>=3.3.0",
+  "python-multipart>=0.0.9",
+  "sqlalchemy>=2.0.35",
+  "uvicorn[standard]>=0.30.6"
+]
+
+[dependency-groups]
+dev = [
+  "httpx>=0.27.2",
+  "pytest>=8.3.3",
+  "pytest-asyncio>=0.24.0",
+  "ruff>=0.6.8"
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "C4"]
+ignore = ["B008"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["app/tests"]
+asyncio_mode = "auto"
