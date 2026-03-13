@@ -25,9 +25,18 @@ class Donation(Base):
     longitude: Mapped[float] = mapped_column(nullable=False)
     special_handling: Mapped[str | None] = mapped_column(Text, nullable=True)
     status: Mapped[DonationStatus] = mapped_column(
-        Enum(DonationStatus, name="donation_status"), default=DonationStatus.AVAILABLE, nullable=False
+        Enum(DonationStatus, name="donation_status"),
+        default=DonationStatus.AVAILABLE,
+        nullable=False,
     )
-    claimed_by_org_id: Mapped[int | None] = mapped_column(ForeignKey("organizations.id"), nullable=True)
+    claimed_by_org_id: Mapped[int | None] = mapped_column(
+        ForeignKey("organizations.id"),
+        nullable=True,
+    )
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
-    organization = relationship("Organization", foreign_keys=[organization_id], back_populates="donations")
+    organization = relationship(
+        "Organization",
+        back_populates="donations",
+        foreign_keys=[organization_id],
+    )

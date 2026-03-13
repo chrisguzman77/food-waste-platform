@@ -12,7 +12,10 @@ class Organization(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(255), nullable=False)
-    type: Mapped[OrganizationType] = mapped_column(Enum(OrganizationType, name="organizaion_type"), nullable=False)
+    type: Mapped[OrganizationType] = mapped_column(
+        Enum(OrganizationType, name="organization_type"),
+        nullable=False,
+    )
     address: Mapped[str] = mapped_column(String(255), nullable=False)
     latitude: Mapped[float] = mapped_column(nullable=False)
     longitude: Mapped[float] = mapped_column(nullable=False)
@@ -22,4 +25,9 @@ class Organization(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
     created_by = relationship("User", back_populates="organizations")
-    donations = relationship("Donation", back_populates="organization")
+
+    donations = relationship(
+        "Donation",
+        back_populates="organization",
+        foreign_keys="Donation.organization_id",
+    )
